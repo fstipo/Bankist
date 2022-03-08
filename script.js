@@ -76,8 +76,14 @@ const displayMovements = movements => {
     containermovs.insertAdjacentHTML('afterbegin', html);
   });
 };
-
 displayMovements(account1.movs);
+
+const calcDisplayBalance = movements => {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance}€`;
+};
+
+calcDisplayBalance(account1.movs);
 
 const createUsernames = function (accs) {
   accs.forEach(acc => {
@@ -90,21 +96,25 @@ const createUsernames = function (accs) {
 };
 createUsernames(accounts);
 
-console.log(account1);
-console.log(account2);
-console.log(account3);
-console.log(account4);
+// Test data 1: [5,2,4,1,15,8,3]
+// Test data 2: [16,6,10,5,6,1,4]
 
-const squareDigits = num => {
-  let temp = num
-    .toString()
-    .split('')
-    .map(num => num ** 2)
-    .join('');
-  return Number(temp);
+// if dogAge <= 2     humanAge = 2* dogAge
+// if dogAge > 2     humanAge =16 + dogAge *4
+
+// 2.     >=18 humanAge
+// 3.     >=18 humanAge
+// 4.  avg >=18
+
+const calcAverageHumanAge = ages => {
+  const humanAges = ages.map(age => (age <= 2 ? 2 * age : 16 + age * 4));
+
+  const isAdult = humanAges.filter(age => age >= 18);
+  const avgAge = isAdult.reduce((acc, age, i, arr) => {
+    return acc + age / arr.length;
+  }, 0);
+  return avgAge;
 };
 
-console.log(squareDigits(9119));
-console.log(squareDigits(3212));
-console.log(squareDigits(0));
-// 811181
+console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
+console.log(parseInt(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4])));
