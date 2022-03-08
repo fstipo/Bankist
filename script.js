@@ -45,7 +45,7 @@ const labelSumInterest = document.querySelector('.summary__value--interest');
 const labelTimer = document.querySelector('.timer');
 
 const containerApp = document.querySelector('.app');
-const containermovs = document.querySelector('.movs');
+const containermovs = document.querySelector('.movements');
 
 const btnLogin = document.querySelector('.login__btn');
 const btnTransfer = document.querySelector('.form__btn--transfer');
@@ -60,3 +60,51 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
+
+const displayMovements = movements => {
+  containermovs.innerHTML = '';
+  movements.forEach((mov, i) => {
+    const isDeposit = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `   
+      <div class="movements__row">
+        <div class="movements__type movements__type--${isDeposit}">${
+      i + 1
+    } ${isDeposit.toUpperCase()}</div>
+        <div class="movements__value">${mov} </div>
+      </div> 
+`;
+    containermovs.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovements(account1.movs);
+
+const createUsernames = function (accs) {
+  accs.forEach(acc => {
+    acc.userName = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0))
+      .join('');
+  });
+};
+createUsernames(accounts);
+
+console.log(account1);
+console.log(account2);
+console.log(account3);
+console.log(account4);
+
+const squareDigits = num => {
+  let temp = num
+    .toString()
+    .split('')
+    .map(num => num ** 2)
+    .join('');
+  return Number(temp);
+};
+
+console.log(squareDigits(9119));
+console.log(squareDigits(3212));
+console.log(squareDigits(0));
+// 811181
