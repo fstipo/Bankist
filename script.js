@@ -172,6 +172,23 @@ btnTransfer.addEventListener('click', e => {
   }
 });
 
+btnLoan.addEventListener('click', e => {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  console.log(amount);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount / 10)) {
+    // add movement
+    currentAccount.movements.push(amount);
+
+    // update UI
+    updateUI(currentAccount);
+
+    // clear input field
+    inputLoanAmount.value = '';
+  }
+});
+
 btnClose.addEventListener('click', e => {
   e.preventDefault();
   if (
@@ -213,3 +230,14 @@ btnClose.addEventListener('click', e => {
 // for (let account of accounts) {
 //   if (account.owner === 'Sarah Smith') console.log(account);
 // }
+
+// console.log(account1.movements);
+// // equality
+// console.log(account1.movements.includes(-130));
+
+// // condition
+// console.log(account1.movements.some(mov => mov === -130));
+
+// console.log(account1.movements.some(mov => mov > 0));
+// console.log(account1.movements.some(mov => mov > 5000));
+// console.log(account1.movements.some(mov => mov > 1000));
