@@ -207,6 +207,22 @@ btnClose.addEventListener('click', e => {
   inputCloseUsername.value = inputClosePin.value = '';
 });
 
+console.log(accounts);
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements);
+const allMovements = accountMovements.flat();
+console.log(allMovements);
+
+const overallBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance);
+
+const overallBalance2 = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => (acc += mov), 0);
+
+console.log(overallBalance2);
+
 // // const calcAverageHumanAge = ages =>
 // //   ages
 // //     .map(age => (age <= 2 ? age * 2 : 16 + age * 4))
@@ -231,13 +247,10 @@ btnClose.addEventListener('click', e => {
 //   if (account.owner === 'Sarah Smith') console.log(account);
 // }
 
-// console.log(account1.movements);
-// // equality
-// console.log(account1.movements.includes(-130));
+// flatMap
 
-// // condition
-// console.log(account1.movements.some(mov => mov === -130));
+const overallBalanceWithFlatMap = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => (acc += mov), 0);
 
-// console.log(account1.movements.some(mov => mov > 0));
-// console.log(account1.movements.some(mov => mov > 5000));
-// console.log(account1.movements.some(mov => mov > 1000));
+console.log(overallBalanceWithFlatMap);
