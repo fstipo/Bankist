@@ -172,6 +172,24 @@ btnTransfer.addEventListener('click', e => {
   }
 });
 
+btnClose.addEventListener('click', e => {
+  e.preventDefault();
+  if (
+    inputCloseUsername.value === currentAccount.userName &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.userName === currentAccount.userName
+    );
+    // Delete account
+    accounts.splice(index, 1);
+    // Hide UI
+    containerApp.style.opacity = 0;
+    // clear input fields
+  }
+  inputCloseUsername.value = inputClosePin.value = '';
+});
+
 // // const calcAverageHumanAge = ages =>
 // //   ages
 // //     .map(age => (age <= 2 ? age * 2 : 16 + age * 4))
