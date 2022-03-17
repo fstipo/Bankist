@@ -61,9 +61,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = movements => {
+const displayMovements = (movements, sort = false) => {
   containermovs.innerHTML = '';
-  movements.forEach((mov, i) => {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach((mov, i) => {
     const isDeposit = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `   
       <div class="movements__row">
@@ -79,7 +82,6 @@ const displayMovements = movements => {
 
 const calcDisplayBalance = acc => {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  console.log(acc);
   labelBalance.textContent = `${acc.balance}€`;
 };
 
@@ -207,21 +209,12 @@ btnClose.addEventListener('click', e => {
   inputCloseUsername.value = inputClosePin.value = '';
 });
 
-console.log(accounts);
-const accountMovements = accounts.map(acc => acc.movements);
-console.log(accountMovements);
-const allMovements = accountMovements.flat();
-console.log(allMovements);
-
-const overallBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
-console.log(overallBalance);
-
-const overallBalance2 = accounts
-  .map(acc => acc.movements)
-  .flat()
-  .reduce((acc, mov) => (acc += mov), 0);
-
-console.log(overallBalance2);
+let sorted = false;
+btnSort.addEventListener('click', e => {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
 
 // // const calcAverageHumanAge = ages =>
 // //   ages
@@ -249,8 +242,16 @@ console.log(overallBalance2);
 
 // flatMap
 
-const overallBalanceWithFlatMap = accounts
-  .flatMap(acc => acc.movements)
-  .reduce((acc, mov) => (acc += mov), 0);
+// SORTING ARRAYS
 
-console.log(overallBalanceWithFlatMap);
+// // Strings
+// const owners = ['Jonas', 'Zack', 'Franko', 'Adam', 'Martha'];
+// console.log(owners.sort());
+// console.log(owners);
+
+// // Numbers
+// console.log([200, 450, -400, 3000, -650, -130, 70, 1300].sort());
+// console.log([200, 450, -400, 3000, -650, -130, 70, 1300].sort((a, b) => a - b));
+// console.log([200, 450, -400, 3000, -650, -130, 70, 1300].sort((a, b) => a + b));
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
